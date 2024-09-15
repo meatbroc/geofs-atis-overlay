@@ -1,11 +1,12 @@
 // ==UserScript==
-// @name         New Userscript
+// @name         Chat Buttons
 // @namespace    http://tampermonkey.net/
-// @version      2024-09-15
-// @description  try to take over the world!
-// @author       You
-// @match        http://*/*
-// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @version      1.0
+// @description  Adds an ATIS overlay for a selected airport
+// @author       Your Name
+// @match        https://geo-fs.com/geofs.php*
+// @match        https://*.geo-fs.com/geofs.php*
+// @match        https://www.geo-fs.com/geofs.php?v=3.82
 // @grant        none
 // ==/UserScript==
 
