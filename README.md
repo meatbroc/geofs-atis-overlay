@@ -10,3 +10,4 @@ geo-fs.com/data/navaids.json
 geo-fs.com/data/runways.json
 geo-fs.com/data/fixes.json
 https://www.geo-fs.com/models/objects/runway/full.jpg
+https://www.geo-fs.com/apple-touch-icon.png
