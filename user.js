@@ -1,10 +1,13 @@
 let airport;
-const styleInject = function {
+const styleInject = () => {
     const styleElm = document.createElement('style');
     styleElm.innerHTML = `
     .atis-visible {
         display: block !important;
-    }    
+    }
+    .atis-hidden {
+        display: none;
+    }
     `
 }
 const x = {
@@ -34,6 +37,29 @@ function reqListener() {
     console.log(this.responseText);
 }
 
+// Assuming geofs.map is already defined
+geofs.map = geofs.map || {};
+
+let mapActiveInternal = geofs.map.mapActive;
+
+Object.defineProperty(geofs.map, 'mapActive', {
+    get() {
+        return mapActiveInternal;
+    },
+    set(value) {
+        mapActiveInternal = value;
+        // Call the listener function when mapActive changes
+        onMapActiveChange(value);
+    }
+});
+
+function onMapActiveChange(newValue) {
+    console.log("mapActive changed to", newValue);
+    if (newValue) {
+        console.log('showing atis')
+    }
+}
+
 function createButton(text, onClick, identifier) {
     const button = document.createElement('button');
     button.innerText = text.toUpperCase();
@@ -56,9 +82,20 @@ function createInput(text, onClick, identifier) {
     return elmnt;
 }
 
-const toggleInput = function {
+function createInput(text, onClick, identifier) {
+    const atisElmnt = document.createElement('input');
+    atisElmnt.innerText = text.toUpperCase();
+    atisElmnt.style.position = 'relative';
+    atisElmnt.style.zIndex = 1000; // Raise the z-index
+    atisElmnt.addEventListener('click', onClick);
+    atisElmnt.classList.add('atis-hidden');
+    atisElmnt.id = identifier
+    return atisElmnt;
+}
+
+const toggleInput = () => {
     const inputElement = document.getElementById('atis-input')
     inputElement.classList.toggle('atis-visible')
 }
 
-const overlayButton = createButton(ATIS, toggleInput, atis-button)
+const overlayButton = createButton('ATIS', toggleInput, 'atis-button')
