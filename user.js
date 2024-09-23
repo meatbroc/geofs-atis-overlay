@@ -1,4 +1,5 @@
 let airport;
+let atisValue;
 const styleInject = () => {
     const styleElm = document.createElement('style');
     styleElm.innerHTML = `
@@ -35,6 +36,7 @@ x.registerListener(function (val) {
 
 function reqListener() {
     console.log(this.responseText);
+    atisValue = this.responseText;
 }
 
 // Assuming geofs.map is already defined
@@ -71,24 +73,26 @@ function createButton(text, onClick, identifier) {
     return button;
 }
 
-function createInput(text, onClick, identifier) {
+function createInput(identifier) {
     const elmnt = document.createElement('input');
-    elmnt.innerText = text.toUpperCase();
     elmnt.style.position = 'relative';
     elmnt.style.zIndex = 1000; // Raise the z-index
     elmnt.addEventListener('click', onClick);
     elmnt.classList.add('mdl-input');
+    elmnt.classList.add('geofs-stopKeyboardPropagation');
+    elmnt.classList.add('geofs-stopKeyupPropagation');
     elmnt.id = identifier
     return elmnt;
 }
 
-function createInput(text, onClick, identifier) {
-    const atisElmnt = document.createElement('input');
+function createDiv(text, onClick, identifier) {
+    const atisElmnt = document.createElement('div');
     atisElmnt.innerText = text.toUpperCase();
     atisElmnt.style.position = 'relative';
     atisElmnt.style.zIndex = 1000; // Raise the z-index
     atisElmnt.addEventListener('click', onClick);
     atisElmnt.classList.add('atis-hidden');
+    atisElmnt.classList.add('atis-visible');
     atisElmnt.id = identifier
     return atisElmnt;
 }
@@ -99,3 +103,5 @@ const toggleInput = () => {
 }
 
 const overlayButton = createButton('ATIS', toggleInput, 'atis-button')
+const airportInput = createInput('airport-input')
+const atisDiv = createDiv(atisValue)
