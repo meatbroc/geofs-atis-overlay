@@ -44,7 +44,7 @@ geofs.map = geofs.map || {};
 
 let mapActiveInternal = geofs.map.mapActive;
 
-Object.defineProperty(geofs.map, 'mapActive', {
+ Object.defineProperty(geofs.map, 'mapActive', {
     get() {
         return mapActiveInternal;
     },
@@ -66,9 +66,12 @@ function createButton(text, onClick, identifier) {
     const button = document.createElement('button');
     button.innerText = text.toUpperCase();
     button.style.position = 'relative';
+    button.style.opacity = 0.87;
     button.style.zIndex = 1000; // Raise the z-index
     button.addEventListener('click', onClick);
-    button.classList.add('mdl-button');
+    button.classList.add('control-pad');
+    button.classList.add('control-pad-label');
+    button.classList.add('transp-pad')
     button.id = identifier
     return button;
 }
@@ -77,7 +80,6 @@ function createInput(identifier) {
     const elmnt = document.createElement('input');
     elmnt.style.position = 'relative';
     elmnt.style.zIndex = 1000; // Raise the z-index
-    elmnt.addEventListener('click', onClick);
     elmnt.classList.add('mdl-input');
     elmnt.classList.add('geofs-stopKeyboardPropagation');
     elmnt.classList.add('geofs-stopKeyupPropagation');
@@ -85,12 +87,11 @@ function createInput(identifier) {
     return elmnt;
 }
 
-function createDiv(text, onClick, identifier) {
+function createDiv(text, identifier) {
     const atisElmnt = document.createElement('div');
-    atisElmnt.innerText = text.toUpperCase();
+    atisElmnt.innerText = text;
     atisElmnt.style.position = 'relative';
     atisElmnt.style.zIndex = 1000; // Raise the z-index
-    atisElmnt.addEventListener('click', onClick);
     atisElmnt.classList.add('atis-hidden');
     atisElmnt.classList.add('atis-visible');
     atisElmnt.id = identifier
@@ -98,10 +99,15 @@ function createDiv(text, onClick, identifier) {
 }
 
 const toggleInput = () => {
-    const inputElement = document.getElementById('atis-input')
+    const inputElement = document.getElementById('atis-element')
     inputElement.classList.toggle('atis-visible')
 }
 
-const overlayButton = createButton('ATIS', toggleInput, 'atis-button')
-const airportInput = createInput('airport-input')
-const atisDiv = createDiv(atisValue)
+const overlayButton = createButton('ATIS', toggleInput, 'atis-button');
+const airportInput = createInput('atis-input');
+const atisDiv = createDiv(atisValue, 'atis-element');
+
+const mapElmnt = document.getElementsByClassName('geofs-map-list')[0];
+mapElmnt.appendChild(overlayButton);
+mapElmnt.appendChild(airportInput);
+mapElmnt.appendChild(atisDiv);
