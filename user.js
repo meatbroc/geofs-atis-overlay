@@ -1,4 +1,5 @@
 let airport;
+let atisValue;
 const styleInject = () => {
     const styleElm = document.createElement('style');
     styleElm.innerHTML = `
@@ -35,6 +36,7 @@ x.registerListener(function (val) {
 
 function reqListener() {
     console.log(this.responseText);
+    atisValue = this.responseText;
 }
 
 // Assuming geofs.map is already defined
@@ -42,7 +44,7 @@ geofs.map = geofs.map || {};
 
 let mapActiveInternal = geofs.map.mapActive;
 
-Object.defineProperty(geofs.map, 'mapActive', {
+ Object.defineProperty(geofs.map, 'mapActive', {
     get() {
         return mapActiveInternal;
     },
@@ -64,38 +66,48 @@ function createButton(text, onClick, identifier) {
     const button = document.createElement('button');
     button.innerText = text.toUpperCase();
     button.style.position = 'relative';
+    button.style.opacity = 0.87;
     button.style.zIndex = 1000; // Raise the z-index
     button.addEventListener('click', onClick);
-    button.classList.add('mdl-button');
+    button.classList.add('control-pad');
+    button.classList.add('control-pad-label');
+    button.classList.add('transp-pad')
     button.id = identifier
     return button;
 }
 
-function createInput(text, onClick, identifier) {
+function createInput(identifier) {
     const elmnt = document.createElement('input');
-    elmnt.innerText = text.toUpperCase();
     elmnt.style.position = 'relative';
     elmnt.style.zIndex = 1000; // Raise the z-index
-    elmnt.addEventListener('click', onClick);
     elmnt.classList.add('mdl-input');
+    elmnt.classList.add('geofs-stopKeyboardPropagation');
+    elmnt.classList.add('geofs-stopKeyupPropagation');
     elmnt.id = identifier
     return elmnt;
 }
 
-function createInput(text, onClick, identifier) {
-    const atisElmnt = document.createElement('input');
-    atisElmnt.innerText = text.toUpperCase();
+function createDiv(text, identifier) {
+    const atisElmnt = document.createElement('div');
+    atisElmnt.innerText = text;
     atisElmnt.style.position = 'relative';
     atisElmnt.style.zIndex = 1000; // Raise the z-index
-    atisElmnt.addEventListener('click', onClick);
     atisElmnt.classList.add('atis-hidden');
+    atisElmnt.classList.add('atis-visible');
     atisElmnt.id = identifier
     return atisElmnt;
 }
 
 const toggleInput = () => {
-    const inputElement = document.getElementById('atis-input')
+    const inputElement = document.getElementById('atis-element')
     inputElement.classList.toggle('atis-visible')
 }
 
-const overlayButton = createButton('ATIS', toggleInput, 'atis-button')
+const overlayButton = createButton('ATIS', toggleInput, 'atis-button');
+const airportInput = createInput('atis-input');
+const atisDiv = createDiv(atisValue, 'atis-element');
+
+const mapElmnt = document.getElementsByClassName('geofs-map-list')[0];
+mapElmnt.appendChild(overlayButton);
+mapElmnt.appendChild(airportInput);
+mapElmnt.appendChild(atisDiv);
