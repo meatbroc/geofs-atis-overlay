@@ -37,6 +37,7 @@ x.registerListener(function (val) {
 function reqListener() {
     console.log(this.responseText);
     atisValue = this.responseText;
+    atisDiv.style.innerText = atisValue
 }
 
 // Assuming geofs.map is already defined
@@ -103,7 +104,13 @@ const toggleInput = () => {
     inputElement.classList.toggle('atis-visible')
 }
 
+const submitFunc = () => {
+    x.airport = airportInput.innerText;
+    airportInput.value = null
+}
+
 const overlayButton = createButton('ATIS', toggleInput, 'atis-button');
+const atisSubmit = createButton('SUBMIT', submitFunc, 'atis-submit');
 const airportInput = createInput('atis-input');
 const atisDiv = createDiv(atisValue, 'atis-element');
 
