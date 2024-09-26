@@ -37,8 +37,8 @@ x.registerListener(function (val) {
 function reqListener() {
     console.log(this.responseText);
     atisValue = this.responseText;
-    atisValue = eval(atisValue[0]);
-    atisDiv.innerHTML = atisValue.datis
+    atisValue = eval(eval(atisValue)[0]).datis
+    atisDiv.innerHTML = atisValue //.datis
 }
 
 // Assuming geofs.map is already defined
