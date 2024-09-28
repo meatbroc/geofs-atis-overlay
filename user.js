@@ -38,6 +38,9 @@ function reqListener() {
     console.log(this.responseText);
     atisValue = this.responseText;
     atisValue = eval(eval(atisValue)[0]).datis
+    if (atisValue) {
+        mapElmnt.appendChild(atisDiv);
+    }
     atisDiv.innerHTML = atisValue //.datis
 }
 
@@ -127,5 +130,4 @@ const atisDiv = createDiv(atisValue, 'atis-element');
 const mapElmnt = document.getElementsByClassName('geofs-map-list')[0];
 mapElmnt.appendChild(overlayButton);
 mapElmnt.appendChild(airportInput);
-mapElmnt.appendChild(atisDiv);
 mapElmnt.appendChild(atisSubmit);
