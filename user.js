@@ -9,6 +9,9 @@ const styleInject = () => {
     .atis-hidden {
         display: none;
     }
+    .atis-font {
+        font-family: 'LCD-Bold' !important;
+    }
     `
 }
 const x = {
@@ -126,8 +129,11 @@ const atisSubmit = createButton('SUBMIT', submitFunc, 'atis-submit');
 atisSubmit.style.left = '75px';
 const airportInput = createInput('atis-input');
 const atisDiv = createDiv(atisValue, 'atis-element');
+// atisDiv.classList.add('atis-font');
+atisDiv.style.fontFamily = "LCD-Bold";
 
 const mapElmnt = document.getElementsByClassName('geofs-map-list')[0];
 mapElmnt.appendChild(overlayButton);
 mapElmnt.appendChild(airportInput);
 mapElmnt.appendChild(atisSubmit);
+// https://aviationweather.gov/api/data/metar?ids=KSFO
